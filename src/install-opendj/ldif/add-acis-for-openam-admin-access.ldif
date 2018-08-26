@@ -1,0 +1,15 @@
+
+{% set priv_user_dn = pillar['opendj']['config']['priv_user_dn']%}
+{% set base_dn = pillar['opendj']['config']['base_dn']%}
+
+dn: {{ base_dn }}
+changetype: modify
+add: aci
+aci: (targetattr="* || aci")(version 3.0;acl "Allow identity modification";
+   allow (write)(userdn = "ldap:///{{priv_user_dn}}");)
+aci: (targetattr!="userPassword||authPassword")(version 3.0;
+   acl "Allow identity search"; allow (search, read)(userdn = "ldap:///{{priv_user_dn}}");)
+aci: (targetcontrol="2.16.840.1.113730.3.4.3")(version 3.0;acl "Allow
+   persistent search"; allow (search, read)(userdn = "ldap:///{{priv_user_dn}}");)
+aci: (version 3.0;acl "Add or delete identities"; allow (add, delete)
+   (userdn = "ldap:///{{priv_user_dn}}");)

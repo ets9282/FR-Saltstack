@@ -1,0 +1,24 @@
+[Unit]
+SourcePath={{ pillar['forgerock']['forgerock-home']}}/opendj/bin
+Description=ForgeRock OpenDJ 5
+Before=runlevel5.target shutdown.target
+After=
+Conflicts=shutdown.target
+
+[Service]
+Environment=JAVA_HOME={{ pillar['jdk']['java_home']}}
+Environment=OPENDJ_JAVA_HOME={{ pillar['jdk']['java_home']}}
+Type=forking
+Restart=always
+TimeoutSec=5min
+IgnoreSIGPIPE=no
+KillMode=process
+GuessMainPID=no
+RemainAfterExit=yes
+ExecStart={{ pillar['forgerock']['forgerock-home']}}/opendj/bin/start-ds --quiet
+ExecStop={{ pillar['forgerock']['forgerock-home']}}/opendj/bin/stop-ds --quiet
+User={{ pillar['forgerock']['forgerock-user']['username']}}
+Group={{ pillar['forgerock']['forgerock-user']['group']}}
+
+[Install]
+WantedBy=multi-user.target

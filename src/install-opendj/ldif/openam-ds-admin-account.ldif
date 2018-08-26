@@ -1,0 +1,21 @@
+{% set priv_user_dn = pillar['opendj']['config']['priv_user_dn']%}
+{% set priv_user_pw = pillar['opendj']['config']['priv_user_pw']%}
+{% set base_dn = pillar['opendj']['config']['base_dn']%}
+
+
+dn: ou=admins,{{base_dn}}
+objectClass: top
+objectClass: organizationalunit
+ou: OpenAM Administrator
+
+dn: {{priv_user_dn}}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: OpenAM Administrator
+sn: OpenAM
+userPassword: {{priv_user_pw}}
+ds-privilege-name: update-schema
+ds-privilege-name: subentry-write
+ds-privilege-name: password-reset

@@ -1,0 +1,26 @@
+# Systemd unit file for tomcat.
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME={{ pillar['jdk']['java_home']}}
+Environment=CATALINA_PID={}/temp/tomcat.pid
+Environment=CATALINA_HOME={{ pillar['tomcat']['catalina_home']}}
+Environment=CATALINA_BASE={{ pillar['tomcat']['catalina_base']}}
+Environment='CATALINA_OPTS=-Xms{{ pillar['tomcat']['xms'] }} -Xmx{{ pillar['tomcat']['xmx'] }} -server -XX:+UseParallelGC'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+ExecStart={{ pillar['tomcat']['catalina_base']}}/bin/catalina.sh start
+ExecStop={{ pillar['tomcat']['catalina_base']}}/bin/catalina.sh stop
+
+User={{ pillar['forgerock']['forgerock-user']['username']}}
+Group={{ pillar['forgerock']['forgerock-user']['group']}}
+UMask=0007
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
