@@ -1,0 +1,94 @@
+{
+    "connectorRef" : {
+        "bundleName" : "org.forgerock.openicf.connectors.scriptedsql-connector",
+        "bundleVersion" : "[1.5.0.0,1.6.0.0)",
+        "connectorName" : "org.forgerock.openicf.connectors.scriptedsql.ScriptedSQLConnector"
+    },
+    "producerBufferSize" : 100,
+    "connectorPoolingSupported" : true,
+    "poolConfigOption" : {
+        "maxObjects" : 10,
+        "maxIdle" : 10,
+        "maxWait" : 150000,
+        "minEvictableIdleTimeMillis" : 120000,
+        "minIdle" : 1
+    },
+    "operationTimeout" : {
+        "CREATE" : -1,
+        "TEST" : -1,
+        "AUTHENTICATE" : -1,
+        "SEARCH" : -1,
+        "VALIDATE" : -1,
+        "GET" : -1,
+        "UPDATE" : -1,
+        "DELETE" : -1,
+        "SCRIPT_ON_CONNECTOR" : -1,
+        "SCRIPT_ON_RESOURCE" : -1,
+        "SYNC" : -1,
+        "SCHEMA" : -1
+    },
+    "configurationProperties" : {
+        "username" : "openidm_dev",
+        "password" : "*****",
+        "driverClassName" : "oracle.jdbc.driver.OracleDriver",
+        "url" : "jdbc:oracle:thin:@//db.jcu.edu.au:11803/idmintdb",
+        "autoCommit" : true,
+        "validationQuery" : "SELECT 1 FROM DUAL",
+        "validationInterval" : "2000",
+        "testOnBorrow" : true,
+        "reloadScriptOnExecution" : false,
+        "authenticateScriptFileName" : "AuthenticateScript.groovy",
+        "createScriptFileName" : "CreateScript.groovy",
+        "testScriptFileName" : "TestScript.groovy",
+        "searchScriptFileName" : "SearchScript.groovy",
+        "deleteScriptFileName" : "DeleteScript.groovy",
+        "updateScriptFileName" : "UpdateScript.groovy",
+        "syncScriptFileName" : "SyncScript.groovy",
+        "schemaScriptFileName" : "SchemaScript.groovy",
+        "scriptRoots" : [
+            "&{idm.instance.dir}/tools"
+        ]
+    },
+    "resultsHandlerConfig" : {
+        "enableAttributesToGetSearchResultsHandler" : true
+    },
+    "systemActions" : [
+        {
+            "scriptId" : "UpdatePassword",
+            "actions" : [
+                {
+                    "systemType" : ".*ScriptedSQLConnector",
+                    "actionType" : "groovy",
+                    "actionFile" : "tools/UpdatePassword.groovy"
+                }
+            ]
+        }
+    ],
+    "syncFailureHandler" : {
+        "maxRetries" : 5,
+        "postRetryAction" : "logged-ignore"
+    },
+    "objectTypes" : {
+        "account" : {
+            "$schema" : "http://json-schema.org/draft-03/schema",
+            "id" : "__ACCOUNT__",
+            "type" : "object",
+            "nativeType" : "__ACCOUNT__",
+            "properties" : {
+                "firstname" : {
+                    "type" : "string",
+                    "nativeName" : "FIRSTNAME",
+                    "nativeType" : "string"
+                },
+                "uid" : {
+                    "type" : "string",
+                    "nativeName" : "ACCOUNTID",
+                    "required" : true,
+                    "nativeType" : "string"
+                }
+            }
+        }
+    },
+    "operationOptions" : { },
+    "enabled" : true
+}

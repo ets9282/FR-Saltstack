@@ -1,0 +1,85 @@
+{
+    "mappings" : [
+        {
+            "name" : "systemLdapAccounts_managedUser",
+            "source" : "system/ldap/account",
+            "target" : "managed/user",
+            "properties" : [
+                {
+                    "source" : "uid",
+                    "target" : "userName"
+                },
+                {
+                    "source" : "cn",
+                    "target" : "cn"
+                },
+                {
+                    "source" : "givenName",
+                    "target" : "givenName"
+                },
+                {
+                    "source" : "sn",
+                    "target" : "sn"
+                },
+                {
+                    "source" : "mail",
+                    "target" : "mail"
+                },
+                {
+                    "source" : "jcuAlternateEmail",
+                    "target" : "jcuAlternateEmail"
+                },
+                {
+                    "source" : "jcuStudentId",
+                    "target" : "jcuStudentId"
+                },
+                {
+                    "source" : "employeeNumber",
+                    "target" : "employeeNumber"
+                },
+                {
+                    "target" : "accountStatus",
+                    "default" : "active",
+                    "source" : "disabled"
+                }
+            ],
+            "policies" : [
+                {
+                    "situation" : "CONFIRMED",
+                    "action" : "UPDATE"
+                },
+                {
+                    "situation" : "FOUND",
+                    "action" : "UPDATE"
+                },
+                {
+                    "situation" : "ABSENT",
+                    "action" : "CREATE"
+                },
+                {
+                    "situation" : "AMBIGUOUS",
+                    "action" : "EXCEPTION"
+                },
+                {
+                    "situation" : "MISSING",
+                    "action" : "UNLINK"
+                },
+                {
+                    "situation" : "SOURCE_MISSING",
+                    "action" : "DELETE"
+                },
+                {
+                    "situation" : "UNQUALIFIED",
+                    "action" : "DELETE"
+                },
+                {
+                    "situation" : "UNASSIGNED",
+                    "action" : "DELETE"
+                }
+            ],
+            "sourceQuery" : {
+                "_queryFilter" : "/uid eq \"system-admin\""
+            }
+        }
+    ]
+}
