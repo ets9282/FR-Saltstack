@@ -11,5 +11,5 @@ wget -O src/installers/opendj.zip https://s3-ap-southeast-2.amazonaws.com/forger
 wget -O src/installers/openidm.zip https://s3-ap-southeast-2.amazonaws.com/forgerock-stack/openidm.zip
 wget -O src/installers/openig.war https://s3-ap-southeast-2.amazonaws.com/forgerock-stack/openig.war
 wget -O src/installers/jdk-8u161-linux-x64.tar.gz https://www.dropbox.com/s/bloohc8evzvnb9z/jdk-8u161-linux-x64.tar.gz
-wget -O src/installers/SSOAdminTools-5.1.1.1.zip https://www.dropbox.com/s/7jfpx8gk7vteryl/SSOAdminTools-5.1.1.1.zip
-wget -O src/installers/SSOConfiguratorTools-5.1.1.1.zip https://www.dropbox.com/s/kj0irydzycwki9q/SSOConfiguratorTools-5.1.1.1.zip
+wget -O src/installers/SSOAdminTools-5.1.1.3.zip https://s3-ap-southeast-2.amazonaws.com/forgerock-stack/AM-SSOAdminTools-5.1.1.3.zip
+wget -O src/installers/SSOConfiguratorTools-5.1.1.3.zip https://s3-ap-southeast-2.amazonaws.com/forgerock-stack/AM-SSOConfiguratorTools-5.1.1.3.zip

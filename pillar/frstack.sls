@@ -7,6 +7,20 @@ forgerock:
   installer-location: /opt/forgerock/installers
   scripts-location: /opt/forgerock/scripts
 
+hostnames:
+  openam:
+    ip: 192.168.50.5
+    name: openam1.local
+  openidm:
+    ip: 192.168.50.6
+    name: openidm1.local
+  openig:
+    ip: 192.168.50.8
+    name: openig1.local
+  opendj:
+    ip: 192.168.50.7
+    name: opendj1.local
+
 jdk:
   version: jdk1.8.0_161
   installer: jdk-8u161-linux-x64.tar.gz
@@ -22,13 +36,13 @@ tomcat:
   xmx: 2048M
 
 openam:
-  version: AM-5.5.1
-  war: AM-5.5.1.war
-  configTool: SSOConfiguratorTools-5.1.1.1.zip
-  configToolVersion: SSOConfiguratorTools-5.1.1.1
-  configToolJar: openam-configurator-tool-14.1.1.1.jar
-  ssoAdm: SSOAdminTools-5.1.1.1.zip
-  ssoAdmVersion: SSOAdminTools-5.1.1.1
+  version: AM-6.0.0
+  war: openam.war
+  configTool: SSOConfiguratorTools-5.1.1.3.zip
+  configToolVersion: SSOConfiguratorTools-5.1.1.3
+  configToolJar: openam-configurator-tool-14.1.1.3.jar
+  ssoAdm: SSOAdminTools-5.1.1.3.zip
+  ssoAdmVersion: SSOAdminTools-5.1.1.3
   config:
     deployment_uri: /openam
     base_dir: /opt/forgerock/openam
@@ -44,7 +58,7 @@ openam:
     config_directory_port: 50389
     config_directory_admin_port: 4444
     config_directory_jmx_port: 1689
-    config_root_suffix: dc=openam,dc=jcu,dc=edu,dc=au
+    config_root_suffix: dc=openam1,dc=local
     config_ds_dirmgrdn: cn=Directory Manager
     config_ds_dirmgrpasswd: 95qy5PnOFwK0CuvS
 
@@ -52,14 +66,16 @@ opendj:
   version: DJ-6.0.0
   installer: opendj.zip
   config:
-    base_dn: dc=jcu,dc=edu,dc=au
+    base_dn: dc=local
     password: 95qy5PnOFwK0CuvS
-    priv_user_dn: uid=openam,ou=admins,dc=jcu,dc=edu,dc=au
+    priv_user_dn: uid=openam,ou=admins,dc=local
     priv_user_pw: 95qy5PnOFwK0CuvS
+    hostname: opendj1.local
 
 openidm:
-  version: IDM-6.0.0
+  version: IDM-6.0.0.2
   installer: openidm.zip
+
 
 openig:
   version: IG-6.1.0

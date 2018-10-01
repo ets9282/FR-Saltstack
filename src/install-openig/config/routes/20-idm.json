@@ -1,0 +1,44 @@
+{
+  "heap": [
+    {
+      "name": "ReverseProxyHandler",
+      "type": "ReverseProxyHandler",
+      "comment": "Testing only: blindly trust the server cert for HTTPS.",
+      "config": {
+        "trustManager": {
+          "type": "TrustAllManager"
+        },
+        "hostnameVerifier": "ALLOW_ALL"
+      }
+    }
+  ],
+  "handler": {
+    "type": "DispatchHandler",
+    "config": {
+      "bindings": [
+        {
+          "condition": "${request.uri.scheme == 'http'}",
+          "handler": "ReverseProxyHandler",
+          "baseURI": "http://{{ pillar['hostnames']['openidm']['name'] }}:8080"
+        },
+        {
+          "condition": "${request.uri.scheme == 'https'}",
+          "handler": {
+            "type": "Chain",
+            "config": {
+              "comment": "Add one or more filters to handle login.",
+              "filters": [],
+              "handler": "ReverseProxyHandler"
+            }
+          },
+          "baseURI": "https://{{ pillar['hostnames']['openidm']['name'] }}:8443"
+        },
+        {
+          "handler": "ReverseProxyHandler",
+          "baseURI": "http://{{ pillar['hostnames']['openidm']['name'] }}:8080"
+        }
+      ]
+    }
+  }
+
+}

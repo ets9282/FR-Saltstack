@@ -1,0 +1,22 @@
+{
+  "handler": {
+    "type": "Router",
+    "name": "_router",
+    "capture": "all",
+      "baseURI": "http://{{ pillar['hostnames']['openidm']['name'] }}:8080"
+  },
+  "heap": [
+    {
+      "name": "JwtSession",
+      "type": "JwtSession"
+    },
+    {
+      "name": "capture",
+      "type": "CaptureDecorator",
+      "config": {
+        "captureEntity": true,
+        "_captureContext": true
+      }
+    }
+  ]
+}

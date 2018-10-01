@@ -1,0 +1,11 @@
+{
+  "handler": {
+    "type": "StaticResponseHandler",
+    "config": {
+      "status": 200,
+      "reason": "OK",
+      "entity": "Health Check success! Your route is ${request.uri.path}"
+    }
+  },
+  "condition": "${matches(request.uri.path, '^/healthcheck')}"
+}

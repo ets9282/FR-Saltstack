@@ -37,3 +37,8 @@ opendj-service:
       - file: copy-init
   service.enabled:
     - name: openidm
+
+restart-openidm:
+  service.running:
+      - name: openidm
+      - enable: True
